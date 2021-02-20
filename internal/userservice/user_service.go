@@ -13,6 +13,12 @@ type UserService struct {
 	mut  sync.RWMutex
 }
 
+func NewUserService(stor storage.KVStorage) *UserService {
+	return &UserService{
+		stor: stor,
+	}
+}
+
 func (us *UserService) CreateUser(user cs.User) error {
 	us.mut.Lock()
 	defer us.mut.Unlock()

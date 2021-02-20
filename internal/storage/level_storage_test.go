@@ -4,11 +4,14 @@ import (
 	"encoding/gob"
 	"errors"
 	"github.com/stretchr/testify/assert"
+	"io/ioutil"
+	"path/filepath"
 	"testing"
 )
 
 func TestLevelStorage_GetAndPut(t *testing.T) {
-	stor, err := NewLevelStorage("./test-level-storage", nil)
+	tmpDir, err := ioutil.TempDir("", "temp")
+	stor, err := NewLevelStorage(filepath.Join(tmpDir, "test-level-storage"), nil)
 	if !assert.Equal(t, nil, err, "error open storage") {
 		t.Fatalf("error open storage: %v", err)
 	}
